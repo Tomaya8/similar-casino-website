@@ -1,7 +1,4 @@
 {
-  "buildCommand": "npm install --prefix webapp && npm run build --prefix webapp",
-  "outputDirectory": "webapp/dist",
-  "devCommand": "npm run dev --prefix webapp",
   "framework": "vite",
   "rewrites": [
     {
