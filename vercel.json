@@ -1,0 +1,12 @@
+{
+  "buildCommand": "cd webapp && npm run build",
+  "outputDirectory": "webapp/dist",
+  "devCommand": "cd webapp && npm run dev",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
