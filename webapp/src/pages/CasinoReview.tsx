@@ -151,6 +151,22 @@ export default function CasinoReview() {
                 </p>
               </div>
 
+              {/* Full review sections */}
+              {casino.review.fullReview ? (
+                <div className="space-y-6">
+                  {casino.review.fullReview.map((section) => (
+                    <div key={section.heading}>
+                      <h3 className="font-serif font-bold text-lg text-foreground mb-3">
+                        {section.heading}
+                      </h3>
+                      <p className="text-sm font-sans text-foreground/80 leading-relaxed">
+                        {section.content}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+
               {/* Pros & cons */}
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="bg-card border border-border rounded-xl p-4">

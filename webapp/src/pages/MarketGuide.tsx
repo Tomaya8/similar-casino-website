@@ -1,11 +1,36 @@
 import { useParams, Link } from "react-router-dom";
-import { ArrowRight, Shield, ExternalLink, ChevronRight } from "lucide-react";
+import { ArrowRight, Shield, ExternalLink, ChevronRight, ChevronDown } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CasinoCard from "@/components/casino/CasinoCard";
 import { getCasinosByMarket, getMarketByCode } from "@/data/casinos";
 import { useCanonical } from "@/hooks/useCanonical";
+import { useState } from "react";
+
+function ReadMoreText({ text }: { text: string }) {
+  const [expanded, setExpanded] = useState(false);
+  const needsTruncation = text.length > 250;
+
+  if (!needsTruncation) {
+    return <p className="text-sm font-sans text-muted-foreground leading-relaxed">{text}</p>;
+  }
+
+  return (
+    <div>
+      <p className="text-sm font-sans text-muted-foreground leading-relaxed">
+        {expanded ? text : `${text.slice(0, 250).trimEnd()}...`}
+      </p>
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="inline-flex items-center gap-1 mt-2 text-xs font-semibold font-sans text-primary hover:text-primary/80 transition-colors"
+      >
+        {expanded ? "Show less" : "Read more"}
+        <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expanded ? "rotate-180" : ""}`} />
+      </button>
+    </div>
+  );
+}
 
 export default function MarketGuide() {
   const { market } = useParams<{ market: string }>();
@@ -156,33 +181,25 @@ export default function MarketGuide() {
                 <h2 className="font-serif text-2xl font-bold text-foreground mb-4">
                   Is Online Gambling Legal in {marketData.name}?
                 </h2>
-                <p className="text-sm font-sans text-muted-foreground leading-relaxed">
-                  {marketData.guide.legalStatus}
-                </p>
+                <ReadMoreText text={marketData.guide.legalStatus} />
               </div>
               <div>
                 <h2 className="font-serif text-2xl font-bold text-foreground mb-4">
                   How Are {marketData.name} Casinos Licensed?
                 </h2>
-                <p className="text-sm font-sans text-muted-foreground leading-relaxed">
-                  {marketData.guide.licensing}
-                </p>
+                <ReadMoreText text={marketData.guide.licensing} />
               </div>
               <div>
                 <h2 className="font-serif text-2xl font-bold text-foreground mb-4">
                   Payment Methods in {marketData.name}
                 </h2>
-                <p className="text-sm font-sans text-muted-foreground leading-relaxed">
-                  {marketData.guide.paymentMethods}
-                </p>
+                <ReadMoreText text={marketData.guide.paymentMethods} />
               </div>
               <div>
                 <h2 className="font-serif text-2xl font-bold text-foreground mb-4">
                   Tax on Casino Winnings
                 </h2>
-                <p className="text-sm font-sans text-muted-foreground leading-relaxed">
-                  {marketData.guide.taxInfo}
-                </p>
+                <ReadMoreText text={marketData.guide.taxInfo} />
               </div>
             </div>
 
@@ -194,9 +211,7 @@ export default function MarketGuide() {
                   <h3 className="font-serif font-bold text-base text-foreground mb-1">
                     Responsible Gambling in {marketData.name}
                   </h3>
-                  <p className="text-sm font-sans text-muted-foreground">
-                    {marketData.guide.responsibleGambling}
-                  </p>
+                  <ReadMoreText text={marketData.guide.responsibleGambling} />
                 </div>
               </div>
             </div>

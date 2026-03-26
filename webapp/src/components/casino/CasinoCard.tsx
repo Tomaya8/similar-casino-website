@@ -74,21 +74,23 @@ export default function CasinoCard({ casino, rank, featured }: CasinoCardProps) 
 
               {/* CTA - desktop */}
               <div className="hidden md:flex flex-col items-end gap-2 shrink-0">
-                <a
-                  href={casino.affiliateUrl}
-                  target="_blank"
-                  rel="noopener noreferrer sponsored"
-                  className="inline-flex items-center gap-1.5 bg-primary text-primary-foreground hover:bg-primary/90 font-sans font-semibold text-sm px-5 py-2.5 rounded-lg transition-all duration-200 hover:shadow-md whitespace-nowrap"
-                >
-                  Visit Casino
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-                <Link
-                  to={`/casino/${casino.slug}`}
-                  className="inline-flex items-center justify-center font-sans font-medium text-sm px-5 py-2 rounded-lg border border-border text-foreground hover:bg-secondary transition-colors whitespace-nowrap"
-                >
-                  Review
-                </Link>
+                <div className="flex items-center gap-2">
+                  <Link
+                    to={`/casino/${casino.slug}`}
+                    className="inline-flex items-center justify-center font-sans font-medium text-sm px-5 py-2.5 rounded-lg border border-border text-foreground hover:bg-secondary transition-colors whitespace-nowrap"
+                  >
+                    Review
+                  </Link>
+                  <a
+                    href={casino.affiliateUrl}
+                    target="_blank"
+                    rel="noopener noreferrer sponsored"
+                    className="inline-flex items-center gap-1.5 bg-primary text-primary-foreground hover:bg-primary/90 font-sans font-semibold text-sm px-5 py-2.5 rounded-lg transition-all duration-200 hover:shadow-md whitespace-nowrap"
+                  >
+                    Visit Casino
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
                 <span className="text-xs text-muted-foreground font-sans">T&Cs Apply · 18+</span>
               </div>
             </div>
