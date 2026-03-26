@@ -8,23 +8,28 @@ import { getCasinosByMarket, getMarketByCode } from "@/data/casinos";
 import { useCanonical } from "@/hooks/useCanonical";
 import { useState } from "react";
 
-function ReadMoreText({ text }: { text: string }) {
+function ReadMoreText({ text, charLimit = 150, variant = "default" }: { text: string; charLimit?: number; variant?: "default" | "hero" }) {
   const [expanded, setExpanded] = useState(false);
-  const needsTruncation = text.length > 120;
+  const needsTruncation = text.length > charLimit;
+
+  const textClass = variant === "hero"
+    ? "text-primary-foreground/80 font-sans text-base leading-relaxed max-w-2xl"
+    : "text-sm font-sans text-muted-foreground leading-relaxed";
+
+  const btnClass = variant === "hero"
+    ? "inline-flex items-center gap-1 mt-2 text-xs font-semibold font-sans text-accent hover:text-accent/80 transition-colors"
+    : "inline-flex items-center gap-1 mt-2 text-xs font-semibold font-sans text-primary hover:text-primary/80 transition-colors";
 
   if (!needsTruncation) {
-    return <p className="text-sm font-sans text-muted-foreground leading-relaxed">{text}</p>;
+    return <p className={textClass}>{text}</p>;
   }
 
   return (
     <div>
-      <p className="text-sm font-sans text-muted-foreground leading-relaxed">
-        {expanded ? text : `${text.slice(0, 250).trimEnd()}...`}
+      <p className={textClass}>
+        {expanded ? text : `${text.slice(0, charLimit).trimEnd()}...`}
       </p>
-      <button
-        onClick={() => setExpanded(!expanded)}
-        className="inline-flex items-center gap-1 mt-2 text-xs font-semibold font-sans text-primary hover:text-primary/80 transition-colors"
-      >
+      <button onClick={() => setExpanded(!expanded)} className={btnClass}>
         {expanded ? "Show less" : "Read more"}
         <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expanded ? "rotate-180" : ""}`} />
       </button>
@@ -118,9 +123,7 @@ export default function MarketGuide() {
                     </h1>
                   </div>
                 </div>
-                <p className="text-primary-foreground/80 font-sans text-base leading-relaxed max-w-2xl">
-                  {marketData.guide.intro}
-                </p>
+                <ReadMoreText text={marketData.guide.intro} charLimit={200} variant="hero" />
               </div>
               <div className="shrink-0 bg-primary-foreground/10 rounded-xl p-4 min-w-[200px]">
                 <dl className="space-y-2">
