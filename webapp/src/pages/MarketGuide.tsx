@@ -5,9 +5,11 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CasinoCard from "@/components/casino/CasinoCard";
 import { getCasinosByMarket, getMarketByCode } from "@/data/casinos";
+import { useCanonical } from "@/hooks/useCanonical";
 
 export default function MarketGuide() {
   const { market } = useParams<{ market: string }>();
+  useCanonical(`/guide/${market}`);
   const marketData = getMarketByCode(market ?? "");
   const marketCasinos = getCasinosByMarket(market?.toUpperCase() ?? "");
 
@@ -32,21 +34,35 @@ export default function MarketGuide() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            name: `Best Online Casinos in ${marketData.name} 2026 — SimilarCasino`,
-            description: `Expert guide to online casinos in ${marketData.name}. ${marketData.guide.intro.slice(0, 150)}`,
-            url: `https://www.similarcasino.com/guide/${market}`,
-            breadcrumb: {
-              "@type": "BreadcrumbList",
-              itemListElement: [
-                { "@type": "ListItem", position: 1, name: "Home", item: "https://www.similarcasino.com" },
-                { "@type": "ListItem", position: 2, name: "Markets", item: "https://www.similarcasino.com/markets" },
-                { "@type": "ListItem", position: 3, name: marketData.name },
-              ],
+          __html: JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              name: `Best Online Casinos in ${marketData.name} 2026 — SimilarCasino`,
+              description: `Expert guide to online casinos in ${marketData.name}. ${marketData.guide.intro.slice(0, 150)}`,
+              url: `https://www.similarcasino.com/guide/${market}`,
+              breadcrumb: {
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  { "@type": "ListItem", position: 1, name: "Home", item: "https://www.similarcasino.com" },
+                  { "@type": "ListItem", position: 2, name: "Markets", item: "https://www.similarcasino.com/markets" },
+                  { "@type": "ListItem", position: 3, name: marketData.name, item: `https://www.similarcasino.com/guide/${market}` },
+                ],
+              },
             },
-          }),
+            {
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: marketData.guide.faq.map((item) => ({
+                "@type": "Question",
+                name: item.question,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: item.answer,
+                },
+              })),
+            },
+          ]),
         }}
       />
 

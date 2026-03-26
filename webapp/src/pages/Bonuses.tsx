@@ -16,6 +16,13 @@ export default function Bonuses() {
     filtered = filtered.filter((c) =>
       c.bonus.headline.toLowerCase().includes("no deposit")
     );
+  } else if (type === "freespins-nd") {
+    filtered = filtered.filter(
+      (c) =>
+        c.bonus.freeSpins &&
+        c.bonus.freeSpins > 0 &&
+        c.bonus.headline.toLowerCase().includes("no deposit")
+    );
   } else if (type === "freespins") {
     filtered = filtered.filter((c) => c.bonus.freeSpins && c.bonus.freeSpins > 0);
   } else if (type === "cashback") {

@@ -83,7 +83,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
-              <h4 className="font-sans font-semibold text-sm text-primary-foreground/50 uppercase tracking-wider mb-4">
+              <h4 className="font-sans font-semibold text-sm text-primary-foreground/60 uppercase tracking-wider mb-4">
                 {category}
               </h4>
               <ul className="space-y-2">
@@ -116,11 +116,11 @@ export default function Footer() {
                   <span className="font-serif-sc text-xs text-accent tracking-widest -mt-1">CASINO</span>
                 </div>
               </div>
-              <p className="text-xs text-primary-foreground/50 font-sans">similarcasino.com</p>
+              <p className="text-xs text-primary-foreground/60 font-sans">similarcasino.com</p>
             </div>
 
             {/* Disclaimer */}
-            <div className="text-xs text-primary-foreground/50 font-sans leading-relaxed">
+            <div className="text-xs text-primary-foreground/60 font-sans leading-relaxed">
               <p className="mb-2">
                 <strong className="text-primary-foreground/70">Affiliate Disclosure:</strong> SimilarCasino.com contains affiliate links. When you click a link and sign up at a casino, we may receive a commission at no additional cost to you. Our reviews and rankings are based on independent editorial assessment and are not influenced by commercial relationships.
               </p>
@@ -133,7 +133,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-primary-foreground/10 flex flex-wrap gap-4 items-center justify-between text-xs text-primary-foreground/40 font-sans">
+          <div className="mt-6 pt-4 border-t border-primary-foreground/10 flex flex-wrap gap-4 items-center justify-between text-xs text-primary-foreground/60 font-sans">
             <p>© {new Date().getFullYear()} SimilarCasino.com · All Rights Reserved</p>
             <div className="flex gap-4">
               <Link to="/privacy" className="hover:text-primary-foreground/70 transition-colors">Privacy</Link>

@@ -5,10 +5,12 @@ import Footer from "@/components/layout/Footer";
 import StarRating from "@/components/casino/StarRating";
 import { getCasinoBySlug } from "@/data/casinos";
 import { Badge } from "@/components/ui/badge";
+import { useCanonical } from "@/hooks/useCanonical";
 
 export default function CasinoReview() {
   const { slug } = useParams<{ slug: string }>();
   const casino = getCasinoBySlug(slug ?? "");
+  useCanonical(`/casino/${slug}`);
 
   if (!casino) {
     return (
@@ -48,6 +50,7 @@ export default function CasinoReview() {
             author: { "@type": "Organization", name: "SimilarCasino" },
             reviewBody: casino.review.summary,
             datePublished: "2026-03-01",
+            dateModified: "2026-03-26",
           }),
         }}
       />

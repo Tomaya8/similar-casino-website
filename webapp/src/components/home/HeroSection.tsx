@@ -1,14 +1,25 @@
 import { Search, Shield, Award, TrendingUp } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { casinos, markets } from "@/data/casinos";
 
 const trustStats = [
-  { icon: Award, value: "182", label: "Casinos Reviewed" },
+  { icon: Award, value: String(casinos.length), label: "Casinos Reviewed" },
   { icon: Shield, value: "100%", label: "Independent Ratings" },
-  { icon: TrendingUp, value: "40+", label: "Markets Covered" },
+  { icon: TrendingUp, value: String(markets.length), label: "Markets Covered" },
 ];
 
 export default function HeroSection() {
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      navigate(`/casinos?q=${encodeURIComponent(searchQuery.trim())}`);
+    } else {
+      navigate("/casinos");
+    }
+  };
 
   return (
     <section className="relative overflow-hidden bg-background hero-pattern">
@@ -49,12 +60,12 @@ export default function HeroSection() {
           </h1>
 
           <p className="text-lg text-muted-foreground font-sans leading-relaxed mb-8 max-w-xl">
-            Expert reviews of 182 online casinos across 40+ markets. Compare bonuses, game libraries,
+            Expert reviews of {casinos.length} online casinos across {markets.length} markets. Compare bonuses, game libraries,
             payout speeds, and licensing — all in one place.
           </p>
 
           {/* Search */}
-          <div className="flex gap-2 max-w-lg">
+          <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }} className="flex gap-2 max-w-lg">
             <div className="relative flex-1">
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
               <input
@@ -65,10 +76,10 @@ export default function HeroSection() {
                 className="w-full pl-10 pr-4 py-3 bg-card border border-border rounded-xl text-sm font-sans text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent shadow-sm"
               />
             </div>
-            <button className="px-5 py-3 bg-primary text-primary-foreground rounded-xl text-sm font-semibold font-sans hover:bg-primary/90 transition-colors shadow-sm whitespace-nowrap">
+            <button type="submit" className="px-5 py-3 bg-primary text-primary-foreground rounded-xl text-sm font-semibold font-sans hover:bg-primary/90 transition-colors shadow-sm whitespace-nowrap">
               Search
             </button>
-          </div>
+          </form>
 
           {/* Popular searches */}
           <div className="flex flex-wrap gap-2 mt-4">
@@ -76,6 +87,7 @@ export default function HeroSection() {
             {["No Deposit Bonus", "UK Casinos", "Fast Payout", "Free Spins", "Live Casino"].map((term) => (
               <button
                 key={term}
+                onClick={() => navigate(`/casinos?q=${encodeURIComponent(term)}`)}
                 className="text-xs font-sans px-3 py-1 rounded-full bg-secondary border border-border text-muted-foreground hover:text-foreground hover:border-border/80 transition-colors"
               >
                 {term}

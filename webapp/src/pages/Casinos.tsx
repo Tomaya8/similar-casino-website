@@ -10,9 +10,22 @@ export default function Casinos() {
   const sort = searchParams.get("sort");
   const filter = searchParams.get("filter");
   const bonus = searchParams.get("bonus");
+  const query = searchParams.get("q")?.toLowerCase().trim();
 
   // Filter and sort logic
   let filtered = [...casinos];
+
+  // Apply text search
+  if (query) {
+    filtered = filtered.filter(
+      (c) =>
+        c.name.toLowerCase().includes(query) ||
+        c.bonus.headline.toLowerCase().includes(query) ||
+        c.tags.some((tag) => tag.toLowerCase().includes(query)) ||
+        c.markets.some((m) => m.toLowerCase().includes(query)) ||
+        c.license.toLowerCase().includes(query)
+    );
+  }
 
   // Apply filters
   if (filter === "new") {

@@ -61,7 +61,7 @@ export default function SitemapPage() {
                 <Link to="/" className="text-primary hover:underline text-sm font-sans">
                   Home
                 </Link>
-                <Link to="/" className="text-primary hover:underline text-sm font-sans">
+                <Link to="/casinos" className="text-primary hover:underline text-sm font-sans">
                   Casinos
                 </Link>
                 <Link to="/bonuses" className="text-primary hover:underline text-sm font-sans">

@@ -39,12 +39,20 @@ export default function CasinoCard({ casino, rank, featured }: CasinoCardProps) 
             <span className="text-xl font-serif font-bold text-muted-foreground/40 w-6 text-center hidden md:block">
               {rank}
             </span>
-            <div
-              className="w-14 h-14 rounded-lg border border-border flex items-center justify-center shrink-0 text-white font-serif font-bold text-lg"
-              style={{ backgroundColor: casino.logoColor }}
-            >
-              {casino.name.slice(0, 2).toUpperCase()}
-            </div>
+            {casino.logoUrl ? (
+              <img
+                src={casino.logoUrl}
+                alt={`${casino.name} logo`}
+                className="w-14 h-14 rounded-lg border border-border object-cover shrink-0"
+              />
+            ) : (
+              <div
+                className="w-14 h-14 rounded-lg border border-border flex items-center justify-center shrink-0 text-white font-serif font-bold text-lg"
+                style={{ backgroundColor: casino.logoColor }}
+              >
+                {casino.name.slice(0, 2).toUpperCase()}
+              </div>
+            )}
           </div>
 
           {/* Casino info */}
@@ -75,6 +83,12 @@ export default function CasinoCard({ casino, rank, featured }: CasinoCardProps) 
                   Visit Casino
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
+                <Link
+                  to={`/casino/${casino.slug}`}
+                  className="inline-flex items-center justify-center font-sans font-medium text-sm px-5 py-2 rounded-lg border border-border text-foreground hover:bg-secondary transition-colors whitespace-nowrap"
+                >
+                  Review
+                </Link>
                 <span className="text-xs text-muted-foreground font-sans">T&Cs Apply · 18+</span>
               </div>
             </div>
@@ -138,6 +152,8 @@ export default function CasinoCard({ casino, rank, featured }: CasinoCardProps) 
         {/* Expand/collapse details */}
         <button
           onClick={() => setExpanded(!expanded)}
+          aria-expanded={expanded}
+          aria-label={expanded ? `Hide details for ${casino.name}` : `Show pros and cons for ${casino.name}`}
           className="flex items-center gap-1 mt-3 text-xs text-muted-foreground hover:text-foreground font-sans transition-colors w-full"
         >
           {expanded ? (

@@ -20,6 +20,7 @@ import Disclosure from "./pages/Disclosure";
 import Methodology from "./pages/Methodology";
 import SitemapPage from "./pages/SitemapPage";
 import Cookies from "./pages/Cookies";
+import Article from "./pages/Article";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/guide/:market" element={<MarketGuide />} />
           <Route path="/casino/:slug" element={<CasinoReview />} />
+          <Route path="/article/:slug" element={<Article />} />
           <Route path="/about" element={<About />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
