@@ -112,19 +112,29 @@ export default function Article() {
 
         {/* Article content */}
         <section className="max-w-3xl mx-auto px-4 py-12">
-          <div className="prose prose-lg font-sans text-muted-foreground leading-relaxed">
-            <p className="text-lg font-medium text-foreground">{article.excerpt}</p>
-            <p className="mt-6">
-              This article is part of our expert guide series at SimilarCasino. Our editorial team
-              independently researches and verifies all information to help you make informed
-              decisions about online casinos.
-            </p>
-            <p>
-              For the latest casino reviews and comparisons across all markets, visit our{" "}
-              <Link to="/casinos" className="text-primary hover:underline">casino listings</Link> or
-              explore our{" "}
-              <Link to="/markets" className="text-primary hover:underline">market guides</Link>.
-            </p>
+          <div className="font-sans text-foreground/80 leading-relaxed">
+            <p className="text-lg font-medium text-foreground mb-6">{article.excerpt}</p>
+            {"content" in article && (article as { content?: string }).content ? (
+              <div className="space-y-4">
+                {((article as { content: string }).content).split("\n\n").map((paragraph, i) => (
+                  <p key={i} className="text-sm leading-relaxed">{paragraph}</p>
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <p className="text-sm">
+                  This article is part of our expert guide series at SimilarCasino. Our editorial team
+                  independently researches and verifies all information to help you make informed
+                  decisions about online casinos.
+                </p>
+                <p className="text-sm">
+                  For the latest casino reviews and comparisons across all markets, visit our{" "}
+                  <Link to="/casinos" className="text-primary hover:underline">casino listings</Link> or
+                  explore our{" "}
+                  <Link to="/markets" className="text-primary hover:underline">market guides</Link>.
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Back link */}

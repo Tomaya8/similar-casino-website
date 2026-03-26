@@ -10,7 +10,7 @@ import { useState } from "react";
 
 function ReadMoreText({ text }: { text: string }) {
   const [expanded, setExpanded] = useState(false);
-  const needsTruncation = text.length > 250;
+  const needsTruncation = text.length > 120;
 
   if (!needsTruncation) {
     return <p className="text-sm font-sans text-muted-foreground leading-relaxed">{text}</p>;
