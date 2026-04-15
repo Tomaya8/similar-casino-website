@@ -22,6 +22,7 @@ import SitemapPage from "./pages/SitemapPage";
 import Cookies from "./pages/Cookies";
 import Article from "./pages/Article";
 import NotFound from "./pages/NotFound";
+import { Helmet } from "react-helmet";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,9 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
+        <Helmet>
+          <title>SimilarCasino — Casino Reviews & Comparisons</title>
+        </Helmet>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/casinos" element={<Casinos />} />
